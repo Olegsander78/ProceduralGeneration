@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NoiseGenerator 
 {
-    public static float[,] GenerateNoiseMap(int noiseSampleSize, float scale, Wave[] waves, int resolution = 1)
+    public static float[,] GenerateNoiseMap(int noiseSampleSize, float scale, Wave[] waves, Vector2 offset, int resolution = 1)
     {
         float[,] noiseMap = new float[noiseSampleSize * resolution, noiseSampleSize * resolution];
 
@@ -12,8 +12,8 @@ public class NoiseGenerator
         {
             for (int y = 0; y < noiseSampleSize * resolution; y++)
             {
-                float samplePosX = (float)x / scale / (float)resolution;
-                float samplePosY = (float)y / scale / (float)resolution;
+                float samplePosX = ((float)x / scale / (float)resolution) + offset.y;
+                float samplePosY = ((float)y / scale / (float)resolution) + offset.x;
 
                 //noiseMap[x, y] = Mathf.PerlinNoise(samplePosX, samplePosY);
 
