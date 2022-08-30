@@ -16,9 +16,11 @@ public class TileGenerator : MonoBehaviour
 
     [Header("Terrain Types")]
     public TerrainType[] heightTerrainTypes;
+    public TerrainType[] heatTerrainTypes;
 
     [Header("Waves")]
     public Wave[] waves;
+    public Wave[] heatWaves;
 
     [Header("Curves")]
     public AnimationCurve heightCurve;
@@ -27,11 +29,17 @@ public class TileGenerator : MonoBehaviour
     private MeshFilter tileMeshFilter;
     private MeshCollider tileMeshCollider;
 
+    private MeshGenerator meshGenerator;
+    private MapGenerator mapGenerator;
+
     private void Start()
     {
         tileMeshRender = GetComponent<MeshRenderer>();
         tileMeshFilter = GetComponent<MeshFilter>();
         tileMeshCollider = GetComponent<MeshCollider>();
+
+        meshGenerator = GetComponent<MeshGenerator>();
+        mapGenerator = FindObjectOfType<MapGenerator>();
         
         GenerateTile();
     }
@@ -62,7 +70,33 @@ public class TileGenerator : MonoBehaviour
 
         Texture2D heightMapTexture = TextureBuilder.BuildTexture(hdHeightMap, heightTerrainTypes);
 
-        tileMeshRender.material.mainTexture = heightMapTexture;
+        //tileMeshRender.material.mainTexture = heightMapTexture;
+
+        float[,] heatMap = GenerateHeatMap(heightMap);
+        tileMeshRender.material.mainTexture = TextureBuilder.BuildTexture(heightMap, heatTerrainTypes);
+
+    }
+
+    float[,] GenerateHeatMap(float[,] heightMap)
+    {
+        float[,] uniformHeatMap = NoiseGenerator.GenerateUniformNoiseMap(noiseSampleSize,
+            transform.position.z * (noiseSampleSize / meshGenerator.xSize), (noiseSampleSize / 2 * mapGenerator.numX) + 1);
+        float[,] randomHeatMap = NoiseGenerator.GenerateNoiseMap(noiseSampleSize, scale, heatWaves, offset);
+
+        float[,] heatMap = new float[noiseSampleSize, noiseSampleSize];
+
+        for (int x = 0; x < noiseSampleSize; x++)
+        {
+            for (int z = 0; z < noiseSampleSize; z++)
+            {
+                heatMap[x, z] = randomHeatMap[x, z] * uniformHeatMap[x, z];
+                heatMap[x, z] += 0.5f * heightMap[x, z];
+
+                heatMap[x, z] = Mathf.Clamp(heatMap[x, z], 0f, 0.99f);
+            }
+        }
+
+        return heatMap;
     }
 }
 
