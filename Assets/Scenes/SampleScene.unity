@@ -279,6 +279,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f55265ce51e0740aecc5e9d5aaea78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noiseSampleSize: 30
+  scale: 5
+  textureResolution: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
