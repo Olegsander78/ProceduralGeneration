@@ -404,6 +404,16 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
+  waves:
+  - seed: 2136
+    frequency: 2
+    amplitude: 3
+  - seed: 5436
+    frequency: 1
+    amplitude: 0.5
+  - seed: 7654
+    frequency: 0.5
+    amplitude: 5
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

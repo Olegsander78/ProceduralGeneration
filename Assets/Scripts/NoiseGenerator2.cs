@@ -58,7 +58,7 @@ public class NoiseGenerator2
 }
 
 [System.Serializable]
-public class Wave
+public class Wave2
 {
     public float seed;
     public float frequency;
