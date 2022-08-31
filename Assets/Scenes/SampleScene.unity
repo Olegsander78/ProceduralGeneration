@@ -333,8 +333,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 4115581997059290992, guid: 6f168dd3d7a85d840ad058462ec4df9f, type: 3}
-  numX: 3
-  numZ: 3
+  numX: 4
+  numZ: 4
 --- !u!4 &1335536906
 Transform:
   m_ObjectHideFlags: 0
