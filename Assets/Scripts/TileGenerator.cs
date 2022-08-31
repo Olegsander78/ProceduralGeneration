@@ -106,7 +106,7 @@ public class TileGenerator : MonoBehaviour
         }
 
         CreateDataMap(heatTerrainTypeMap, moistureTerrainTypeMap);
-        //TreeSpawner.instance.Spawn(dataMap);
+        TreeSpawner.instance.Spawn(dataMap);
 
         //tileMeshRender.material.mainTexture = heightMapTexture;
 
