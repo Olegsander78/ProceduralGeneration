@@ -20,10 +20,9 @@ public class NoiseGenerator
                 float noise = 0f;
                 float normalization = 0f;
 
-                foreach(Wave wave in waves)
+                foreach (Wave wave in waves)
                 {
-                    noise += wave.amplitude * Mathf.PerlinNoise(samplePosX * wave.frequency + wave.seed,
-                        samplePosY * wave.frequency + wave.seed);
+                    noise += wave.amplitude * Mathf.PerlinNoise(samplePosX * wave.frequency + wave.seed, samplePosY * wave.frequency + wave.seed);
                     normalization += wave.amplitude;
                 }
 
